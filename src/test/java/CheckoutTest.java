@@ -109,7 +109,7 @@ public class CheckoutTest extends Hooks {
         Thread.sleep(1000);
     }
 
-    @Test(description = "Add//Delete product to/from favorite on emag")
+    @Test(description = "Add/Delete product to/from favorite on emag")
     public void AddToFavorite() throws InterruptedException {
         checkoutPage.insertTextInSearchBox("google pixel 9 pro");
         Thread.sleep(1000);
@@ -123,6 +123,26 @@ public class CheckoutTest extends Hooks {
         checkoutPage.clickDeleteProductButton();
         Thread.sleep(1000);
         assertEquals(checkoutPage.favoriteProducts(), "0");
+    }
+
+    @Test(description = "Apply some filters for laptop category on emag")
+    public void applyFilters() throws InterruptedException {
+        checkoutPage.clickMenu();
+        Thread.sleep(1000);
+        checkoutPage.clickLaptopTabletPhoneCategory();
+        Thread.sleep(1000);
+        checkoutPage.clickLaptopsAndAccessories();
+        Thread.sleep(1000);
+        checkoutPage.clickLaptops();
+        Thread.sleep(1000);
+        checkoutPage.insertMinimPrice();
+        Thread.sleep(1000);
+        checkoutPage.insertMaximPrice();
+        Thread.sleep(1000);
+        checkoutPage.clickIntervalFilterButton();
+        Thread.sleep(5000);
+        checkoutPage.clickMemoryRAM();
+        Thread.sleep(5000);
     }
 }
 

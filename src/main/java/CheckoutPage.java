@@ -284,4 +284,64 @@ public class CheckoutPage extends BasePage {
     public void clickDeleteProductButton() {
         deleteProductButton.click();
     }
+
+    //Apply some filters for laptop category on emag
+
+    @FindBy(css = ".navbar-aux-content__departments")
+    private WebElement menu;
+
+    public void clickMenu() {
+        menu.click();
+    }
+
+    @FindBy(xpath = "//*[@class = 'megamenu-list-department js-megamenu-list-department'][1]")
+    private WebElement laptopTabletPhoneCategory;
+
+    public void clickLaptopTabletPhoneCategory() {
+        laptopTabletPhoneCategory.click();
+    }
+
+    @FindBy(linkText = "Laptopuri si accesorii")
+    private WebElement laptopsAndAccessories;
+
+    public void clickLaptopsAndAccessories() {
+        laptopsAndAccessories.click();
+    }
+
+    @FindBy(linkText = "Laptopuri")
+    private WebElement laptops;
+
+    public void clickLaptops() {
+        laptops.click();
+    }
+
+    @FindBy(css = ".form-control.js-custom-price-min")
+    private WebElement minimPrice;
+
+    public void insertMinimPrice() {
+        minimPrice.clear();
+        minimPrice.sendKeys("3000");
+    }
+
+    @FindBy(css = ".form-control.js-custom-price-max")
+    private WebElement maximPrice;
+
+    public void insertMaximPrice() {
+        maximPrice.clear();
+        maximPrice.sendKeys("5000");
+    }
+
+    @FindBy(css = ".btn.btn-alt.js-custom-price-trigger.btn-primary")
+    private WebElement intervalFilterButton;
+
+    public void clickIntervalFilterButton() {
+        intervalFilterButton.click();
+    }
+
+    @FindBy(xpath = "//*[@class = 'js-filter-item filter-item' and @data-name = '12 - 16 GB']")
+    private WebElement memoryRAM;
+
+    public void clickMemoryRAM() {
+        memoryRAM.click();
+    }
 }

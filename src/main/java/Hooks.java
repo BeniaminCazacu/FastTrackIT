@@ -1,5 +1,6 @@
 // Importing ExtentReports, ExtentTest, and ExtentSparkReporter classes from the AventStack ExtentReports library.
 // These classes are used for generating detailed and customizable test reports.
+import Utils.DatabaseUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -44,15 +45,17 @@ public class Hooks {
 
         // Navigating to the specified URL in the browser. 
         // This is the starting point for the tests, loading the web application under test.
-        // driver.get("https://fasttrackit-test.netlify.app/#/");
-        driver.get("https://www.emag.ro/");
+//        driver.get("https://fasttrackit-test.netlify.app/#/");
+//        driver.get("https://www.emag.ro/");
+//        driver.get("https://fasttrackit-test.netlify.app/#/");
+        driver.get("https://demo.wearehaive.com/ro/solutions/restaurants");
     }
 
     // Method annotated with @AfterMethod, indicating that it will run after each test method.
     // This method tears down the WebDriver instance and closes the browser.
     @AfterMethod
     public void tearDown() {
-
+        DatabaseUtils.deleteVenueByOrganisationId("org_2m6zQLPZXOMr1B2e1kYQfoJRYzW");
         // Quitting the WebDriver session, which closes all browser windows and ends the WebDriver process.
         driver.quit();
     }

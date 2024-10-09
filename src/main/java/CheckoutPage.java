@@ -1,3 +1,4 @@
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
@@ -5,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import static java.lang.Double.parseDouble;
 
@@ -17,6 +19,8 @@ public class CheckoutPage extends BasePage {
     // WebDriverWait is used for implementing explicit waits during interactions with web elements.
     public WebDriverWait wait;
 
+    public SoftAssert softAssert;
+    
     // Constructor for the CheckoutPage class that takes a WebDriver object as an argument.
     // This constructor calls the parent class (BasePage) constructor to initialize the WebDriver instance
     // and sets up the PageFactory to initialize the web elements on this page.
@@ -27,6 +31,7 @@ public class CheckoutPage extends BasePage {
         // Initializing the WebDriverWait object with a 10-second timeout.
         // This will be used to wait for certain conditions or elements during test execution.
         wait = new WebDriverWait(driver, 10);
+        softAssert = new SoftAssert();
     }
 
     // Locating the search bar element using the @FindBy annotation.
@@ -338,10 +343,51 @@ public class CheckoutPage extends BasePage {
         intervalFilterButton.click();
     }
 
-    @FindBy(xpath = "//*[@class = 'js-filter-item filter-item' and @data-name = '12 - 16 GB']")
-    private WebElement memoryRAM;
+    //END of applying some filters for laptop category
 
-    public void clickMemoryRAM() {
-        memoryRAM.click();
+    public void addProductToWishlist() {
+        clickAwesomeChipsLink();
+        clickHeartIcon();
+        softAssert.assertEquals(getShoppingCartBadge().getText(), "1");
+        ExtentTestNGITestListener.getTest().log(Status.PASS, "Shopping cart badge was updated with success.");
+        clickShoppingCartBadge();
+    }
+
+    public void addProductToCart() {
+        clickAwesomeShirt();
+        clickAdd2Cart();
+        clickCartBtn();
+    }
+
+    @FindBy (xpath = "(//td[@class='amount'])[2]")
+    private WebElement taxPrice;
+
+    public double taxPrice() {
+        String taxValue = taxPrice.getText();
+        String cleanTaxValue = taxValue.replace("$", "");
+        return Double.parseDouble(cleanTaxValue);
+    }
+
+    @FindBy (xpath = "(//td[@class='amount'])[3]")
+    private WebElement totalPrice;
+
+    public double totalPrice() {
+        String totalValue = totalPrice.getText();
+        String cleanTotalValue = totalValue.replace("$", "");
+        return Double.parseDouble(cleanTotalValue);
+    }
+
+    @FindBy(css = ".svg-inline--fa.fa-trash.fa-w-14 ")
+    private WebElement deleteItemButton;
+
+    public void clickDeleteItemButton() {
+        deleteItemButton.click();
+    }
+
+    @FindBy(css = ".text-center.container")
+    private WebElement emptyCartText;
+
+    public WebElement getEmptyCartText() {
+        return emptyCartText;
     }
 }
